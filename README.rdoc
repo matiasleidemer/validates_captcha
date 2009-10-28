@@ -1,5 +1,5 @@
 = Validates Captcha
-<b>attention:<b> the original (and probably working ^^) is here: http://github.com/m4n/validates_captcha
+Attention: the original (and probably working ^^) is here: http://github.com/m4n/validates_captcha
 
 I can't guarantee that it'll work for you. 
 
