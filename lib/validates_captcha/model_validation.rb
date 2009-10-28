@@ -1,15 +1,23 @@
 module ValidatesCaptcha
   module ModelValidation
     def self.included(base) #:nodoc:
-      base.extend ClassMethods
-      base.send :include, InstanceMethods
-      
-      base.class_eval do
-        attr_accessible :captcha_challenge, :captcha_solution
-        attr_accessor :captcha_solution
-        attr_writer :captcha_challenge
+      base.extend CaptchaMethods
+    end
+    
+    module CaptchaMethods
+      def acts_as_captchable
+        self.class_eval do
+          attr_accessible :captcha_challenge, :captcha_solution
+          attr_accessor :captcha_solution
+          attr_writer :captcha_challenge
+
+          validate :validate_captcha, :if => :validate_captcha?
+        end
         
-        validate :validate_captcha, :if => :validate_captcha?
+        unless included_modules.include? InstanceMethods
+          extend ClassMethods
+          include InstanceMethods
+        end
       end
     end
     
